@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "api gateway"
+version = "0.1"
+description = "api gateway microservice"
+authors = ["LedxDeliveryFlopp <korstim18@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.110.0"}
+pydantic-settings = "^2.2.1"
+ruff = "^0.2.2"
+psycopg2-binary = "^2.9.9"
+asyncpg = "^0.29.0"
+sqlalchemy = "^2.0.28"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+exclude = ["usr", "venv", "tmp", "var"]
+line-length = 88
+indent-width = 4
+target-version = "py311"
