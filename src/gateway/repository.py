@@ -34,7 +34,7 @@ class TokenVerifyRepository:
         date = datetime.utcnow()
         if token.expire < date:
             await self.session_service.delete_object(delete_object=token)
-            return status.HTTP_403_FORBIDDEN
+            raise HTTPException(status_code=403, detail="bad token")
         return status.HTTP_200_OK
 
     async def get_token_payload_role(self):
@@ -46,7 +46,7 @@ class TokenVerifyRepository:
         date = datetime.utcnow()
         if token.expire < date:
             await self.session_service.delete_object(delete_object=token)
-            return status.HTTP_403_FORBIDDEN
+            raise HTTPException(status_code=403, detail="bad token")
         token_data = token.token
         token_payload = jwt.decode(token=token_data, key=settings.jwt_settings.jwt_secret,
                                    algorithms=settings.jwt_settings.jwt_algorithm)
