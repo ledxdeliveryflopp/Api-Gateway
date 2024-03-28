@@ -18,7 +18,7 @@ jobs:
       - name: Build docker nginx network
         run: docker network create nginx
       - name: Build docker container
-        run: docker-compose watch
+        run: docker-compose -f docker-compose-github.yml up -d --build
       - name: Check running containers
         run: docker ps -a
 
@@ -33,6 +33,6 @@ jobs:
       - name: Build docker nginx network
         run: docker network create nginx
       - name: Build docker container
-        run: docker-compose watch
+        run: docker-compose -f docker-compose-github.yml up -d --build
       - name: Check code by linter
         run: docker exec api_gateway ruff check

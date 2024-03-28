@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+
+  database:
+    container_name: database
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+    - database:/data/
+    ports:
+    - "5432:5432"
+    networks:
+      - sql
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - protocol: tcp
+        target: 8000
+        published: 8881
+    env_file:
+      - .env
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - nginx
+    depends_on:
+      - api_gateway
+
+
+  api_gateway:
+    container_name: api_gateway
+    build:
+      ./
+    command: uvicorn main:gateway_api --host 0.0.0.0 --port 9000
+    ports:
+      - "9000:9000"
+    networks:
+      - sql
+      - nginx
+
+networks:
+    sql:
+      external: true
+    nginx:
+      external: true
+
+volumes:
+  database:
