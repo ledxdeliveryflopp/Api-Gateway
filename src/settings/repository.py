@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-from typing import Any
-from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
