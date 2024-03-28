@@ -22,8 +22,8 @@ class SqlSettings(BaseSettings):
 
     @property
     def db_full_url(self) -> str:
-        return (f"postgresql+asyncpg://{self.sql_user}:{self.sql_password}@"
-                f"{self.sql_host}:{self.sql_port}/{self.sql_name}")
+        return (f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}@"
+                f"{self.postgres_host}:{self.postgres_port}/{self.postgres_db}")
 
 
 class Settings(BaseSettings):

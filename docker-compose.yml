@@ -31,6 +31,20 @@ services:
     depends_on:
       - api_gateway
 
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    container_name: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - broker:/data/
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - rabbit
 
   api_gateway:
     container_name: api_gateway
@@ -47,8 +61,12 @@ services:
         - action: sync
           path: src/
           target: src/
-        - action: sync
 
+        - action: sync
+          path: nginx/
+          target: nginx/
+
+        - action: sync
           path: ./
           target: ./
           ignore:
@@ -70,6 +88,9 @@ networks:
       external: true
     nginx:
       external: true
+    rabbit:
+      external: true
 
 volumes:
   database:
+  broker:
