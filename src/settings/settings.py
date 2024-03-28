@@ -12,11 +12,11 @@ class JwtSettings(BaseSettings):
 
 class SqlSettings(BaseSettings):
     """Настройки для БД"""
-    sql_user: str
-    sql_password: str
-    sql_host: str
-    sql_port: str
-    sql_name: str
+    postgres_user: str
+    postgres_password: str
+    postgres_host: str
+    postgres_port: str
+    postgres_db: str
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
